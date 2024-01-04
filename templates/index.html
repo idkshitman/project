@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pneumonia Detector</title>
+    <style>
+        body {
+            background-color: #1f1f1f;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        hr {
+            margin: 20px 0;
+            border: 1px solid #2a9d8f;
+        }
+
+        h1 {
+            color: #2a9d8f;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        form {
+            text-align: center;
+            margin: 30px auto;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        label {
+            cursor: pointer;
+            padding: 10px 20px;
+            background-color: #2a9d8f;
+            color: #fff;
+            border-radius: 5px;
+            margin-right: 10px;
+            display: inline-block;
+        }
+
+        button {
+            background-color: #2a9d8f;
+            border: none;
+            color: #fff;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        img {
+            display: block;
+            margin: auto;
+            margin-top: 20px;
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        p {
+            text-align: center;
+            color: #fff;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <hr>
+
+    <h1>
+        Pneumonia <span style="color: #2a9d8f;">Detection</span> and Classification using <span style="color: #2a9d8f;">Deep Learning</span>
+    </h1>
+
+    <form action="/" method="post" enctype="multipart/form-data">
+        <h2>Please Upload an X-ray Image</h2>
+        <label for="imagefile" id="fileLabel">Choose File</label>
+        <input type="file" id="imagefile" name="imagefile" required autofocus onchange="updateFileName()">
+        <button type="submit">Predict</button>
+    </form>
+
+    {% if prediction %}
+        <h2>
+            Person is Pneumonia {{ prediction }}
+        </h2>
+    {% endif %}
+
+    {% if imagePath %}
+        <img src="{{ imagePath }}" alt="X-ray Image">
+    {% endif %}
+
+    {% if tips %}
+        <p>{{ tips }}</p>
+    {% endif %}
+
+    <script>
+        function updateFileName() {
+            const fileInput = document.getElementById('imagefile');
+            const fileLabel = document.getElementById('fileLabel');
+            fileLabel.innerText = fileInput.files.length > 0 ? fileInput.files[0].name : 'Choose File';
+        }
+    </script>
+
+</body>
+</html>
